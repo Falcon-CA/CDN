@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>FalconCA CDN | {{ name }}</title>
+
+        <link rel="icon" href="/asset/img/ico.png">
+        <link rel="stylesheet" href="/asset/css/folder.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+
+        <!-- Discord embed -->
+        <meta property="og:site_name" content="FalconCA CDN">
+        <meta property="og:url" content="https://cdn.falconca.ca">
+        <meta property="og:title" content="{{ name }}">
+        <meta property="og:description" content="{{ len(files) + len(directories) }} child directories and files">
+        <meta property="og:type" content="website">
+        <meta name="theme-color" content="#0096FF">
+    </head>
+
+    <body>
+        <div class="header">
+            <p class="header_title">FalconCA CDN</p>
+            <p class="folder_name">{{ name }}</p>
+        </div>
+
+        <div class="content">
+            {% if parent %}
+                <p class="parent_link"><a href="{{ parent }}">Parent directory</a></p>
+            {% endif %}
+
+            <p class="dir_title">Child Directories</p>
+            <table class="dir_table">
+                <tr>
+                    <th><a href="{{ self_dir }}?sort=name">Name</a></th>
+                    <th><a href="{{ self_dir }}?sort=created">Created at</a></th>
+                    <th>Private</th>
+                    <th><a href="{{ self_dir }}?sort=id">ID</a></th>
+                </tr>
+                {% for dir in directories %}
+                    <tr>
+                        {% if len(dir.name) > 25 %}
+                            <td><a href="/directory/{{ dir.id }}">{{ dir.name[:24] }}..</a></td>
+                        {% else %}
+                            <td><a href="/directory/{{ dir.id }}">{{ dir.name }}</a></td>
+                        {% endif %}
+                        <td>{{ dir.created }}</td>
+                        {% if dir.private %}
+                            <td>Yes</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                        <td>{{ dir.id }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <p class="file_title">Files</p>
+            <table class="file_table">
+                <tr>
+                    <th><a href="{{ self_dir }}?sort=name">Name</a></th>
+                    <th><a href="{{ self_dir }}?sort=created">Created at</a></th>
+                    <th><a href="{{ self_dir }}?sort=size">Size</a></th>
+                    <th>Private</th>
+                    <th><a href="{{ self_dir }}?sort=id">ID</a></th>
+                </tr>
+                {% for file in files %}
+                    <tr>
+                        {% if len(file.name) > 25 %}
+                            <td><a href="/file/{{ file.id }}">{{ file.name[:24] }}..</a></td>
+                        {% else %}
+                            <td><a href="/file/{{ file.id }}">{{ file.name }}</a></td>
+                        {% endif %}
+                        <td>{{ file.created }}</td>
+                         {% if file.size < 1024 %}
+                            <td>{{ file.size }}B</td>
+                        {% elif file.size >= 1024 and file.size < 1024 * 1024 %}
+                            <td>{{ round(file.size / 1024, 1) }}K</td>
+                        {% elif file.size >= 1024 * 1024 and file.size < 1024 * 1024 * 1024 %}
+                            <td>{{ round(file.size / (1024 * 1024), 1) }}M</td>
+                        {% else %}
+                            <td>{{ round(file.size / (1024 * 1024 * 1024), 1) }}G</td>
+                        {% endif %}
+                        {% if file.private %}
+                            <td>Yes</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                        <td>{{ file.id }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>

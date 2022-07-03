@@ -1,0 +1,80 @@
+body {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+th a:link {
+    color: #363636;
+}
+th a:hover {
+    color: #000000;
+}
+th a:visited {
+    color: #363636;
+}
+
+.header {
+    width: 100%;
+    height: 70px;
+    display: block;
+    background-color: #131313;
+    position: fixed;
+    box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.2);
+    font-family: 'Montserrat', sans-serif;
+}
+.header .header_title {
+    font-size: 30px;
+    color: #FFFFFF;
+    float: left;
+    margin-top: 17px;
+    margin-bottom: 9px;
+    margin-left: 17px;
+    font-weight: bolder;
+}
+
+.content {
+    font-size: 16px;
+    margin-top: 80px;
+    margin-left: 1%;
+    display: inline-block;
+}
+
+.content .parent {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.content .parent a:link {
+    color: #444444;
+}
+.content .parent a:hover {
+    color: #0A0A0A;
+}
+.content .parent a:visited {
+    color: #444444;
+}
+
+.content .file_title {
+    font-size: 30px;
+    margin-bottom: 1px;
+    margin-top: 20px;
+}
+.content .dir_title {
+    font-size: 30px;
+    margin-bottom: 1px;
+}
+.content .dir_table {
+    margin-bottom: 20px;
+    margin-top: 3px;
+}
+.content .file_table {
+    margin-top: 3px;
+}
